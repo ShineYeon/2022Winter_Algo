@@ -23,68 +23,66 @@ struct Data {
     }
 };
 
-bool compare(int i, int j){
-    return j<i;
-}
 
-priority_queue<Data> pq;
+priority_queue<pair<Data, int>> pq;
 vector<Data> vd[10001];
-int tmpCost[50001];
-int cost[10001];
+long long cost[10001][21]; //dp이용하는 cost, 1번에서 첫번째 인덱스로 가는데 두번째인덱스만큼 포장해서 가는 최소비용
 bool visited[10001];
+
+void dijkstra() {
+    pq.push(make_pair(Data(1, 0), K));
+    cost[1][K] = 0;
+    while(!pq.empty()) {
+        int nowNode = pq.top().first.node;
+        long long nowCost = pq.top().first.weight;
+        int cnt = pq.top().second;
+
+        pq.pop();
+
+        for(int i=0;i<vd[nowNode].size();i++){
+            int nextNode = vd[nowNode].at(i).node;
+            long long nextCost = vd[nowNode].at(i).weight + nowCost;
+
+            if(cnt>0){
+                if(cost[nextNode][cnt-1] > nowCost){
+                    cost[nextNode][cnt-1] = nowCost;
+                    pq.push(make_pair(Data(nextNode, nowCost), cnt-1));
+                }
+            }
+            if(cost[nextNode][cnt] > nextCost){
+                cost[nextNode][cnt] = nextCost;
+                pq.push(make_pair(Data(nextNode, nextCost), cnt));
+            }
+        }
+    }
+}
 
 int main(){
     scanf("%d %d %d", &N, &M, &K);
     for(int i=0;i<=N;i++){
         vd[i].clear();
-        cost[i] = INF;
         visited[i] = false;
+    }
+    for(int i=0;i<=N;i++){
+        for(int j=0;j<=K;j++){
+            cost[i][j] = INF;
+        }
     }
     for(int i=1;i<=M;i++){
         scanf("%d %d %d", &a, &b, &c);
         vd[a].push_back(Data(b, c));
         vd[b].push_back(Data(a, c));
-        tmpCost[i-1] = c;
+    }
+    dijkstra();
+
+    long long ans = 1e15;
+    for(int i=0;i<=K;i++){
+        ans = min(ans, cost[N][i]);
     }
 
-    sort(tmpCost, tmpCost+M, compare);
-    bool check = false;
-    for(int i=0;i<K;i++){
-        for(int j=1;j<=N;j++){
-            for(int k=0;k<vd[j].size();k++){
-                if(vd[j].at(k).weight == tmpCost[i]){
-                    check=true;
-                    vd[j].at(k).weight = 0;
-                    for(int s=0;s<vd[vd[j].at(k).node].size();s++) {
-                        if(vd[vd[j].at(k).node].at(s).node == j) {
-                            vd[vd[j].at(k).node].at(s).weight = 0;
-                            break;
-                        }
-                    }
-                    break;
-                }
-            }
-            if(check) break;
-        }
-        check = false;
-    }
 
-    pq.push(Data(1, 0));
-    cost[1] = 0;
-    while(!pq.empty()) {
-        Data now = pq.top();
-        pq.pop();
-        if(visited[now.node]) continue;
-        visited[now.node] = true;
-        for(int i=0;i<vd[now.node].size();i++){
-            Data next = vd[now.node].at(i);
-            if(cost[next.node] > cost[now.node] + next.weight){
-                cost[next.node] = cost[now.node]+ next.weight;
-                pq.push(Data(next.node, cost[next.node]));
-            }
-        }
-    }
+    printf("%lld\n", ans);
 
-    printf("%d\n", cost[N]);
+    return 0;
 }
 

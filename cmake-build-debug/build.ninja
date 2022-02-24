@@ -72,8 +72,8 @@ build edit_cache: phony CMakeFiles/edit_cache.util
 
 build cmake_object_order_depends_target_2022winter_algo_clion: phony || CMakeFiles/2022winter_algo_clion.dir
 
-build CMakeFiles/2022winter_algo_clion.dir/1162.cpp.o: CXX_COMPILER__2022winter_algo_clion_Debug /Users/heeyeon/CLionProjects/2022winter_algo_clion/1162.cpp || cmake_object_order_depends_target_2022winter_algo_clion
-  DEP_FILE = CMakeFiles/2022winter_algo_clion.dir/1162.cpp.o.d
+build CMakeFiles/2022winter_algo_clion.dir/10282.cpp.o: CXX_COMPILER__2022winter_algo_clion_Debug /Users/heeyeon/CLionProjects/2022winter_algo_clion/10282.cpp || cmake_object_order_depends_target_2022winter_algo_clion
+  DEP_FILE = CMakeFiles/2022winter_algo_clion.dir/10282.cpp.o.d
   FLAGS = -g -arch x86_64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk -std=gnu++14
   OBJECT_DIR = CMakeFiles/2022winter_algo_clion.dir
   OBJECT_FILE_DIR = CMakeFiles/2022winter_algo_clion.dir
@@ -86,7 +86,7 @@ build CMakeFiles/2022winter_algo_clion.dir/1162.cpp.o: CXX_COMPILER__2022winter_
 #############################################
 # Link the executable 2022winter_algo_clion
 
-build 2022winter_algo_clion: CXX_EXECUTABLE_LINKER__2022winter_algo_clion_Debug CMakeFiles/2022winter_algo_clion.dir/1162.cpp.o
+build 2022winter_algo_clion: CXX_EXECUTABLE_LINKER__2022winter_algo_clion_Debug CMakeFiles/2022winter_algo_clion.dir/10282.cpp.o
   FLAGS = -g -arch x86_64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk
   OBJECT_DIR = CMakeFiles/2022winter_algo_clion.dir
   POST_BUILD = :
